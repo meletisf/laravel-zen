@@ -54,6 +54,12 @@ class RunDiagnostics extends Command
 
     }
 
+    /**
+     * Transform the data in to the format the are required by the console for tables.
+     *
+     * @param $results
+     * @return array
+     */
     private function prepareTableArray($results)
     {
         $output = [];
