@@ -3,6 +3,7 @@
 namespace Meletisf\Zen;
 
 use Illuminate\Support\ServiceProvider;
+use Meletisf\Zen\Console\Commands\RunDiagnostics;
 
 class ZenServiceProvider extends ServiceProvider
 {
@@ -16,6 +17,10 @@ class ZenServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->make('Meletisf\Zen\Http\Controllers\HealthController');
+
+        $this->commands([
+            RunDiagnostics::class
+        ]);
     }
 
     /**
