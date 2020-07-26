@@ -1,5 +1,7 @@
 # Laravel Zen
 
+[![Latest Stable Version](https://poser.pugx.org/meletisf/laravel-zen/v)](//packagist.org/packages/meletisf/laravel-zen) [![Total Downloads](https://poser.pugx.org/meletisf/laravel-zen/downloads)](//packagist.org/packages/meletisf/laravel-zen) [![Latest Unstable Version](https://poser.pugx.org/meletisf/laravel-zen/v/unstable)](//packagist.org/packages/meletisf/laravel-zen) [![License](https://poser.pugx.org/phpunit/phpunit/license)](//packagist.org/packages/meletisf/laravel-zen)
+
 Laravel Zen is a package that is used in conjunction with a load balancer's 
 health check feature in order to ensure that no dysfunctional node attempts to serve
 the user.
