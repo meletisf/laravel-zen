@@ -16,9 +16,9 @@ return [
 
     'checklist' => [
         \Meletisf\Zen\Diagnostics\EnvFileExists::class,
-        //\Meletisf\Zen\Diagnostics\AppKeyExists::class,
-        //\Meletisf\Zen\Diagnostics\EnvironmentIsProduction::class,
-        //\Meletisf\Zen\Diagnostics\DebugIsOff::class,
+        \Meletisf\Zen\Diagnostics\AppKeyExists::class,
+        \Meletisf\Zen\Diagnostics\EnvironmentIsProduction::class,
+        \Meletisf\Zen\Diagnostics\DebugIsOff::class,
     ],
 
     /*
