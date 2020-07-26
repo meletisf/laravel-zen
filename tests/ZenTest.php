@@ -2,8 +2,8 @@
 
 namespace Meletisf\Zen\Test;
 
-use Meletisf\Zen\Events\CheckFailed;
-use Meletisf\Zen\Events\CheckPassed;
+use Meletisf\Zen\Events\DiagnosticFailed;
+use Meletisf\Zen\Events\DiagnosticPassed;
 use Meletisf\Zen\Zen;
 
 class ZenTest extends TestCase
@@ -15,7 +15,7 @@ class ZenTest extends TestCase
             PassingMockCheck::class,
         ], null, false);
 
-        $checks = $zd->getChecks();
+        $checks = $zd->getDiagnostics();
 
         $this->assertTrue(
             in_array(new PassingMockCheck(), $checks)
@@ -37,7 +37,7 @@ class ZenTest extends TestCase
         \Event::fake();
 
         $zd->runDiagnostic(new PassingMockCheck());
-        \Event::assertDispatched(CheckPassed::class);
+        \Event::assertDispatched(DiagnosticPassed::class);
     }
 
     /** @test */
@@ -49,7 +49,7 @@ class ZenTest extends TestCase
         try {
             $zd->runDiagnostic(new FailingMockCheck());
         } catch (\Exception $e) {
-            \Event::assertDispatched(CheckFailed::class);
+            \Event::assertDispatched(DiagnosticFailed::class);
         }
     }
 }

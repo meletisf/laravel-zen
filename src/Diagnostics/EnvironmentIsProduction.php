@@ -3,9 +3,9 @@
 namespace Meletisf\Zen\Diagnostics;
 
 use Meletisf\Zen\Core\ZenCheckAbstract;
-use Meletisf\Zen\Interfaces\HealthCheckInterface;
+use Meletisf\Zen\Interfaces\DiagnosticInterface;
 
-class EnvironmentIsProduction extends ZenCheckAbstract implements HealthCheckInterface
+class EnvironmentIsProduction extends ZenCheckAbstract implements DiagnosticInterface
 {
     protected $message = 'APP_ENV is not set to production!';
 

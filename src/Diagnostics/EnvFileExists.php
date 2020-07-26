@@ -3,9 +3,9 @@
 namespace Meletisf\Zen\Diagnostics;
 
 use Meletisf\Zen\Core\ZenCheckAbstract;
-use Meletisf\Zen\Interfaces\HealthCheckInterface;
+use Meletisf\Zen\Interfaces\DiagnosticInterface;
 
-class EnvFileExists extends ZenCheckAbstract implements HealthCheckInterface
+class EnvFileExists extends ZenCheckAbstract implements DiagnosticInterface
 {
     protected $message = '.env does not exist!';
 

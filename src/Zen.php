@@ -2,14 +2,14 @@
 
 namespace Meletisf\Zen;
 
-use Meletisf\Zen\Events\CheckFailed;
-use Meletisf\Zen\Events\CheckPassed;
+use Meletisf\Zen\Events\DiagnosticFailed;
+use Meletisf\Zen\Events\DiagnosticPassed;
 use Meletisf\Zen\Exceptions\HealthCheckFailedException;
-use Meletisf\Zen\Interfaces\HealthCheckInterface;
+use Meletisf\Zen\Interfaces\DiagnosticInterface;
 
 class Zen
 {
-    protected $health_checks = [];
+    protected $diagnostics = [];
 
     protected $broadcast_events;
 
@@ -25,22 +25,22 @@ class Zen
      */
     public function __construct(array $health_checks, bool $broadcast_events = true)
     {
-        $this->addChecks($health_checks);
+        $this->addDiagnostics($health_checks);
 
         $this->broadcast_events = $broadcast_events;
     }
 
     /**
-     * Add an array of checks.
+     * Add an array of diagnostics.
      *
-     * @param array $checks
+     * @param array $diagnostics
      *
      * @return void
      */
-    public function addChecks(array $checks): void
+    public function addDiagnostics(array $diagnostics): void
     {
-        foreach ($checks as $check) {
-            $this->addCheck(new $check());
+        foreach ($diagnostics as $check) {
+            $this->addDiagnostic(new $check());
         }
     }
 
@@ -49,21 +49,21 @@ class Zen
      *
      * @return array
      */
-    public function getChecks(): array
+    public function getDiagnostics(): array
     {
-        return $this->health_checks;
+        return $this->diagnostics;
     }
 
     /**
      * Add a single check.
      *
-     * @param HealthCheckInterface $check
+     * @param DiagnosticInterface $check
      *
      * @return void
      */
-    public function addCheck(HealthCheckInterface $check): void
+    public function addDiagnostic(DiagnosticInterface $check): void
     {
-        array_push($this->health_checks, $check);
+        array_push($this->diagnostics, $check);
     }
 
     /**
@@ -73,7 +73,7 @@ class Zen
      */
     public function runDiagnostics()
     {
-        foreach ($this->health_checks as $healthcheck) {
+        foreach ($this->diagnostics as $healthcheck) {
             $this->runDiagnostic($healthcheck);
         }
 
@@ -84,17 +84,17 @@ class Zen
     }
 
     /**
-     * @param HealthCheckInterface $healthCheck
+     * @param DiagnosticInterface $diagnostic
      *
      * @return bool
      */
-    public function runDiagnostic(HealthCheckInterface $healthCheck)
+    public function runDiagnostic(DiagnosticInterface $diagnostic)
     {
-        if (! $healthCheck->check()) {
-            $this->fail($healthCheck);
+        if (! $diagnostic->check()) {
+            $this->fail($diagnostic);
             return false;
         } else {
-            $this->passed($healthCheck);
+            $this->passed($diagnostic);
             return true;
         }
     }
@@ -102,36 +102,36 @@ class Zen
     /**
      * Handle a failure.
      *
-     * @param HealthCheckInterface $check
+     * @param DiagnosticInterface $diagnostic
      *
      * @return void
      */
-    protected function fail(HealthCheckInterface $check): void
+    protected function fail(DiagnosticInterface $diagnostic): void
     {
         if ($this->broadcast_events) {
-            event(new CheckFailed($check));
+            event(new DiagnosticFailed($diagnostic));
         }
 
         // if a single check fails, then the node is unhealthy
         $this->is_healthy = false;
 
-        $this->results[get_class($check)] = 'failed';
+        $this->results[get_class($diagnostic)] = 'failed';
     }
 
     /**
      * Handle a success.
      *
-     * @param HealthCheckInterface $check
+     * @param DiagnosticInterface $diagnostic
      *
      * @return void
      */
-    protected function passed(HealthCheckInterface $check): void
+    protected function passed(DiagnosticInterface $diagnostic): void
     {
         if ($this->broadcast_events) {
-            event(new CheckPassed($check));
+            event(new DiagnosticPassed($diagnostic));
         }
 
-        $this->results[get_class($check)] = 'passed';
+        $this->results[get_class($diagnostic)] = 'passed';
     }
 
     /**

@@ -27,7 +27,8 @@ return [
     'abort_code' => 500,
 
     /*
-     * If set to true, the Meletisf\Zen\Events\CheckFailed will be fired.
+     * If set to true, the Meletisf\Zen\Events\DiagnosticFailed will be fired when a diagnostic fails,
+     * or Meletisf\Zen\Events\DiagnosticPassed in case the diagnostic passes.
      */
     'broadcast_events' => env('ZEN_ENABLE_HEALTHCHECK_EVENTS', true),
 

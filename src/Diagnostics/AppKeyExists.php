@@ -3,9 +3,9 @@
 namespace Meletisf\Zen\Diagnostics;
 
 use Meletisf\Zen\Core\ZenCheckAbstract;
-use Meletisf\Zen\Interfaces\HealthCheckInterface;
+use Meletisf\Zen\Interfaces\DiagnosticInterface;
 
-class AppKeyExists extends ZenCheckAbstract implements HealthCheckInterface
+class AppKeyExists extends ZenCheckAbstract implements DiagnosticInterface
 {
     protected $message = 'APP_KEY is not set!';
 

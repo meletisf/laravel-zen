@@ -3,9 +3,9 @@
 namespace Meletisf\Zen\Diagnostics;
 
 use Meletisf\Zen\Core\ZenCheckAbstract;
-use Meletisf\Zen\Interfaces\HealthCheckInterface;
+use Meletisf\Zen\Interfaces\DiagnosticInterface;
 
-class DebugIsOff extends ZenCheckAbstract implements HealthCheckInterface
+class DebugIsOff extends ZenCheckAbstract implements DiagnosticInterface
 {
     protected $message = 'APP_DEBUG is on!';
 
