@@ -1,0 +1,49 @@
+{
+  "name": "meletisf/laravel-zen",
+  "description": "A package for providing the health state of the application in order to help load balancers determine the pool membership",
+  "keywords": [
+    "laravel",
+    "health",
+    "health check",
+    "load",
+    "balancer"
+  ],
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Meletios Flevarakis",
+      "email": "m.flevarakis@acg.edu"
+    }
+  ],
+  "require": {
+    "php" : ">=7.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.7|6.2|^7.0",
+    "orchestra/testbench": "^3.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Meletisf\\Zen\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Meletisf\\Zen\\Test\\": "tests"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Meletisf\\Zen\\ZenServiceProvider"
+      ],
+      "aliases": {
+        "Zen": "Meletisf\\Zen\\Facades\\Zen"
+      }
+    }
+  },
+  "scripts": {
+    "test": "phpunit"
+  }
+}
