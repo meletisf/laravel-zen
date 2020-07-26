@@ -40,7 +40,7 @@ class RunDiagnostics extends Command
     {
         $results = Zen::runDiagnostics();
 
-        $this->table(['Diagnostic', 'Result'], $this->prepareTableArray($results['details']));
+        $this->table(['Diagnostic', 'Result', 'Details'], $this->prepareTableArray($results['details']));
 
         if (! $results['is_healthy']) {
             $this->error('The Application is unhealthy :(');
@@ -66,8 +66,9 @@ class RunDiagnostics extends Command
 
         foreach ($results as $k => $v) {
             $output[] = [
-                'diagnostic' => $k,
-                'result' => $v
+                'diagnostic'    => $k,
+                'result'        => $v,
+                'details'       => ($v == 'passed') ? '' : (resolve($k))->getMessage()
             ];
         }
 
